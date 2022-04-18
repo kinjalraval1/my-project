@@ -1,0 +1,110 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+
+				<div class="col-md-12"> 
+					<!-- Billing Details -->
+					<div class="billing-details">
+						<div class="section-title">
+							<h3 class="title" style="color: red;"> User Signup </h3>
+						</div>
+						{% if msg %}
+						<p style="color: red;font-size: 15px;">{{msg}}</p>
+						{% endif %}
+						<form name="Signup" method="post" action="{% url 'signup' %}
+						" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="form-group">
+							Select User type:- &nbsp; &nbsp;&nbsp;&nbsp;
+							<input type="radio" name="usertype" value="user">User&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="usertype" value="seller">Seller&nbsp;&nbsp;&nbsp;
+							
+						</div>
+						<div class="form-group">  
+							<input class="input" type="text" name="fname" placeholder="First Name">
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="lname" placeholder="Last Name">
+						</div>
+						<div class="form-group">
+							<input class="input" type="email" name="email" placeholder="Email" id="email">
+							<span id="email_error"></span>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="mobile" placeholder="mobile">
+						</div> 
+						<div class="form-group">
+							<input class="input" type="text" name="address" placeholder="Address">
+						</div>
+						<div class="form-group">
+							<input class="input" type="password" name="password" placeholder="password">
+						</div>
+						<div class="form-group">
+							<input class="input" type="password" name="cpassword" placeholder="Confirm Password">
+						</div>
+						<div class="form-group">
+							<input class="input" type="file" name="image">
+						</div>
+						<div class="form-group" align="center">
+							<input  type="submit" name="action" value="Sign up " class="primary-btn order-submit">
+						</div>
+					</form>
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<!-- NEWSLETTER -->
+
+<!-- /NEWSLETTER -->
+
+<!-- FOOTER -->
+
+<!-- /FOOTER -->
+<script>
+	$("#email").change (function () {
+		var email = $(this).val();
+
+		$.ajax({
+			url: '/ajax/validate_email/',
+			data: {
+				'email': email 
+			},
+			dataType: 'json',
+			success: function (data) {
+				if (data.is_taken) {
+					document.getElementById("email_error").innerHTML="Email Already Registered";
+				}
+				else{
+					document.getElementById("email_error").innerHTML="";
+
+				}
+				
+			}
+		});
+	});
+</script>
+</body>
+</html>
+{% endblock %}

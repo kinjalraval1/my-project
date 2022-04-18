@@ -1,0 +1,71 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		
+    </head>
+	<body>
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<div class="col-md-12"> 
+						<!-- Billing Details -->
+						<div class="billing-details">
+							<div class="section-title">
+								<h3 class="title"> Contact </h3>
+							</div>
+							{% if msg %}
+								<p style="color: red;font-size: 15px;">{{msg}}</p>
+							{% endif %}
+							<form name="contact" method="post" action="{% url 'contact' %}">
+								{% csrf_token %}
+							<div class="form-group">  
+								<input class="input" type="text" name="name" placeholder="Enter Name">
+							</div>
+						
+							<div class="form-group">
+								<input class="input" type="email" name="email" placeholder="Email">
+							</div>
+
+
+							<div class="form-group">
+								<input class="input" type="text" name="mobile" placeholder="mobile">
+							</div> 
+
+							<div class="form-group">
+								<textarea class="input" placeholder="Remarks" name="remark"></textarea>
+								
+							</div>
+
+
+							<div class="form-group" align="center">
+								<input  type="submit" name="action" value="Submit" class="primary-btn order-submit">
+							</div>
+							</form>
+							<hr>
+							<h1> Recent Contacts </h1>
+							<hr>
+							{% for i in contacts %}
+								name : {{i.name}}<br><br>
+								remark : {{i.remark}}<br><br>
+							{% endfor %}
+													
+							
+	
+								
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
+{% endblock %}
